@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Herramientas internas de precios y cálculo.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTc0LjAwMDAwMCAyMjExLjAwMDAwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCI+IDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDIyMTEuMDAwMDAwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIiBmaWxsPSIjMjUyODJBIiBzdHJva2U9Im5vbmUiPiA8cGF0aCBkPSJNOTU1IDIyMTAxIGMtMyAtNiAtMjcgLTEzIC01MyAtMTcgLTg4IC0xMiAtMjU0IC03NiAtMzMwIC0xMjYgLTI0IC0xNSAtNDUgLTI4IC00OCAtMjggLTE1IDAgLTEyOCAtOTcgLTE5NCAtMTY2IC0xNDUgLTE1MyAtMjM2IC0zMjMgLTI4MSAtNTI4IC0zMCAtMTQxIC0yNSAtMjMyMiA2IC0yMzE4IDExIDEgNjIgOSAxMTQgMTcgMTM3IDIyIDEwNTIxIDIyIDEwNjczIDAgMzcxIC01MyA2ODEgLTI5OCA4MTAgLTY0MCAzNCAtOTAgNDAgLTExNSA1NCAtMjIwIDIwIC0xNjEgMjAgLTEyNjAyIDAgLTEyNzcwIC0zMSAtMjQ3IC0xMzQgLTQ0OSAtMzE2IC02MTcgLTcxIC02NyAtMjM1IC0xNzYgLTI4NSAtMTkwIC0xMSAtNCAtNDUgLTE2IC03NSAtMjcgLTE1NiAtNjAgLTE4MSAtNjEgLTEzODUgLTYxIC0xMTgxIDAgLTExOTkgMSAtMTM0OSA1MSAtMzU0IDExOSAtNTk4IDM5OSAtNjgzIDc4NCAtMTcgNzYgLTE4IDMyMyAtMjAgNDgwNSAtMiAyNTk5IC01IDQ3MzEgLTggNDczOCAtMyA5IC03NTAgMTIgLTM2ODcgMTIgLTIwNDQgMCAtMzcwMSA0IC0zNzIzIDkgLTIyIDUgLTY0IDEyIC05MiAxNSBsLTUzIDcgMCAtNjkzNiBjMCAtNzU0OCAtNCAtNjk3MiA1MSAtNzE0MCA3MyAtMjE5IDI5OCAtNTEwIDQ0OSAtNTc4IDggLTQgMjkgLTE2IDQ1IC0yNyAxNyAtMTEgMzkgLTI0IDUwIC0yOSAxMTUgLTUzIDIwNyAtODQgMjgyIC05NiAyNCAtNCA0NSAtMTEgNDkgLTE2IDMgLTUgMzU1MiAtOSA4OTE0IC05IDUzNjIgMCA4OTExIDQgODkxNCA5IDQgNSAyNSAxMiA0OSAxNiA0MDkgNjUgNzY4IDQyNSA4NjIgODY1IDI3IDEzMCAxOCAyMzA2IC0xMCAyMzAzIC0xMSAtMSAtNjAgLTkgLTExMCAtMTcgLTEyOCAtMjIgLTIyMTcgLTIzIC0yMzY3IC0xIC0zODQgNTQgLTcwNyAzMTggLTgyNCA2NzIgLTU4IDE3NyAtNTQgLTM0NiAtNTQgNzIxNiAwIDQ5MTkgMyA2OTY5IDExIDcwMTYgNzUgNDYxIDQxMiA3OTMgODY5IDg1NiAxNTggMjIgMjIyMyAyMiAyMzYxIDAgNTIgLTggMTAzIC0xNiAxMTQgLTE3IDI4IC00IDM3IDIxNzIgMTAgMjMwMiAtNDkgMjI4IC0xNDIgMzk4IC0zMDkgNTY2IC0xNjYgMTY1IC0zNTUgMjY4IC01NTMgMjk5IC0yNCA0IC00NSAxMSAtNDkgMTYgLTcgMTIgLTE3ODIxIDEyIC0xNzgyOSAweiIvPiA8L2c+IDwvc3ZnPiA=">
+<title>Herramientas FV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F2F0; --sheet:#FAFAF8; --ink:#1D1E20; --graphite:#4B4D51; --mute:#7C7E82;
+  --line:#D4D4CF; --line-strong:#A9AAA5; --accent:#8C6B3F; --accent-ink:#FAFAF8;
+  --hatch:rgba(29,30,32,.06); --field:#FFFFFF;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#141516;--sheet:#1B1C1E;--ink:#E8E8E4;--graphite:#B9BAB5;--mute:#8A8B87;
+  --line:#2F3033;--line-strong:#4A4B4E;--accent:#C29A64;--accent-ink:#141516;--hatch:rgba(232,232,228,.05);--field:#222325;}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#141516;--sheet:#1B1C1E;--ink:#E8E8E4;--graphite:#B9BAB5;--mute:#8A8B87;
+  --line:#2F3033;--line-strong:#4A4B4E;--accent:#C29A64;--accent-ink:#141516;--hatch:rgba(232,232,228,.05);--field:#222325;}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--body);padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1120px;margin:0 auto}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+.eyebrow{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-16px;padding-inline:16px}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mark{width:30px;height:30px;border:1.5px solid var(--ink);display:grid;place-items:center;font:700 13px/1 var(--display);font-stretch:75%;letter-spacing:.02em}
+.brand b{font:700 15px/1.1 var(--display);font-stretch:85%;text-transform:uppercase;letter-spacing:.04em}
+.brand small{display:block;font:400 11px/1.2 var(--mono);color:var(--mute);letter-spacing:.04em}
+nav.tabs{display:flex;gap:2px;flex-wrap:wrap}
+nav.tabs a{font:500 13px/1 var(--body);text-decoration:none;padding:9px 12px;color:var(--graphite);border:1px solid transparent}
+nav.tabs a:hover{color:var(--ink)}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-color:var(--line-strong);background:var(--sheet)}
+
+section.view{padding-block:40px 0}
+section.view[hidden]{display:none}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:end;padding-bottom:36px;border-bottom:1px solid var(--line)}
+.hero h1{font-size:clamp(40px,7vw,84px);line-height:.92;font-weight:800;font-stretch:78%;text-transform:uppercase}
+.hero h1 span{color:var(--mute)}
+.hero p{color:var(--graphite);max-width:46ch;margin:0 0 6px}
+.cota{display:flex;align-items:center;gap:8px;margin-top:22px;color:var(--mute);font:400 11px/1 var(--mono)}
+.cota::before,.cota::after{content:"";height:1px;background:var(--line-strong);flex:1}
+.cota i{font-style:normal}
+
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:40px 0 16px;flex-wrap:wrap}
+.sec-head h2{font-size:26px;font-weight:700;font-stretch:85%;text-transform:uppercase}
+.sec-head a{font:500 13px var(--body);color:var(--graphite)}
+
+/* index lists (home) */
+.index{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink)}
+.index a{text-decoration:none;padding:18px 16px 20px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.index a+a{padding-left:16px;border-left:1px solid var(--line)}
+.index h3{font-size:19px;font-weight:650;font-stretch:88%}
+.index p{margin:0;color:var(--graphite);font-size:14px}
+.index a:hover h3{text-decoration:underline;text-underline-offset:3px}
+.rows{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:110px 1fr auto;gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;cursor:pointer;background:none;border-left:0;border-right:0;border-top:0;width:100%;text-align:left}
+.row:hover .t{text-decoration:underline;text-underline-offset:3px}
+.row .t{font:600 17px/1.3 var(--display);font-stretch:90%}
+.row .d{color:var(--graphite);font-size:14px;display:block;margin-top:2px;font-family:var(--body)}
+
+/* tools */
+.tool-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);flex-wrap:wrap;margin-bottom:24px}
+.tool-tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:12px 16px 11px;cursor:pointer;font:600 14px var(--body);color:var(--graphite)}
+.tool-tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tool{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:32px}
+.panel{background:var(--sheet);border:1px solid var(--line);padding:20px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field label{font:500 12px var(--body);color:var(--graphite)}
+[hidden]{display:none!important}
+.field input[type="checkbox"]{width:auto;padding:0;margin:0 6px 0 0;accent-color:var(--ink)}
+.field input:not([type="checkbox"]),.field select{background:var(--field);border:1px solid var(--line-strong);padding:9px 10px;border-radius:2px;width:100%}
+.field input:not([type="checkbox"]){font-family:var(--mono);font-variant-numeric:tabular-nums}
+.field .hint{font-size:12px;color:var(--mute)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.result h3{font-size:14px;font-weight:600;font-stretch:100%;text-transform:uppercase;letter-spacing:.06em;color:var(--graphite);margin-bottom:6px}
+.big{font:500 clamp(30px,4.5vw,44px)/1.05 var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.big small{font-size:14px;color:var(--mute);letter-spacing:0}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);text-align:left;padding:8px 10px;border-bottom:1px solid var(--ink)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.r,th.r{text-align:right}
+td.num{white-space:nowrap}
+tfoot td{font-weight:600;border-top:1px solid var(--ink);border-bottom:0}
+.bar{height:6px;background:var(--hatch);position:relative;margin-top:6px}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--graphite)}
+.note{font-size:12.5px;color:var(--mute);margin-top:14px;max-width:70ch}
+.caps{text-transform:uppercase}
+.chip{display:inline-block;font:500 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 6px;border:1px solid var(--line-strong);color:var(--graphite);white-space:nowrap}
+.search{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.search input,.search select{background:var(--field);border:1px solid var(--line-strong);padding:9px 10px;border-radius:2px}
+.search input{flex:1;min-width:0}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--bg);border:1px solid var(--ink);padding:9px 14px;font:600 13px var(--body);cursor:pointer;border-radius:2px;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn.sm{padding:5px 9px;font-size:12px}
+
+/* articles */
+.art-list{display:grid;grid-template-columns:1fr;gap:0}
+article.reader{max-width:680px}
+article.reader h1{font-size:clamp(30px,4.6vw,46px);font-weight:750;font-stretch:82%;line-height:1.02;margin:10px 0 18px}
+article.reader h2{font-size:20px;font-weight:650;font-stretch:90%;margin:28px 0 8px}
+article.reader p,article.reader li{color:var(--graphite);font-size:16.5px;line-height:1.7}
+article.reader strong{color:var(--ink)}
+.back{background:none;border:0;padding:0;cursor:pointer;color:var(--graphite);font:500 13px var(--body);margin-bottom:22px}
+
+/* shop */
+.shop{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink);border-left:1px solid var(--line)}
+.item{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:10px}
+.item .ph{aspect-ratio:4/3;max-width:100%;background:repeating-linear-gradient(135deg,var(--hatch) 0 1px,transparent 1px 9px);border:1px solid var(--line);display:grid;place-items:center;font:500 12px var(--mono);color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
+.item h3{font-size:19px;font-weight:650;font-stretch:88%}
+.item p{margin:0;color:var(--graphite);font-size:14px;flex:1}
+.item .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:6px;border-top:1px dashed var(--line)}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.4fr;gap:40px}
+.about p{color:var(--graphite);font-size:16px;max-width:60ch}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:0;margin:0;border-top:1px solid var(--ink)}
+dl.kv dt,dl.kv dd{padding:11px 0;border-bottom:1px solid var(--line);margin:0}
+dl.kv dt{font:500 11px/1.9 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);padding-right:24px}
+.copyline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* title block footer */
+footer.tb{margin-top:64px;border:1px solid var(--ink);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;font-size:12px}
+footer.tb div{padding:10px 12px;border-right:1px solid var(--line)}
+footer.tb div:last-child{border-right:0}
+footer.tb span{display:block;font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;font-size:13px;border-radius:2px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+
+@media (max-width:860px){
+  .hero,.tool,.about{grid-template-columns:1fr;gap:24px}
+  .index{grid-template-columns:1fr 1fr}
+  .index a:nth-child(3){padding-left:0;border-left:0}
+  .shop{grid-template-columns:1fr 1fr}
+  footer.tb{grid-template-columns:1fr 1fr}
+  footer.tb div:nth-child(2){border-right:0}
+  footer.tb div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+}
+@media (max-width:520px){
+  .index,.shop{grid-template-columns:1fr}
+  .index a+a{padding-left:0;border-left:0}
+  .row{grid-template-columns:1fr auto;gap:10px}
+  .row .eyebrow{grid-column:1/-1}
+  nav.tabs a{padding:8px 9px}
+  .two{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<style>
+.alc{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:13.5px}
+.alc label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;line-height:1.35}
+.alc input{margin-top:2px;accent-color:var(--ink)}
+.seg{display:flex;border:1px solid var(--line-strong);border-radius:2px;overflow:hidden}
+.seg label{flex:1;text-align:center;padding:8px 6px;font-size:13px;cursor:pointer;color:var(--graphite)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){background:var(--ink);color:var(--bg)}
+.seg label+label{border-left:1px solid var(--line-strong)}
+details.alcance{border-bottom:1px solid var(--line)}
+details.alcance summary{display:grid;grid-template-columns:1fr auto auto;gap:14px;padding:10px 0;cursor:pointer;list-style:none;align-items:baseline}
+details.alcance summary::-webkit-details-marker{display:none}
+details.alcance summary::before{content:"+";font:500 13px var(--mono);color:var(--mute);position:absolute;margin-left:-16px}
+details.alcance[open] summary::before{content:"−"}
+details.alcance{padding-left:16px;position:relative}
+details.alcance table{margin:0 0 12px}
+details.alcance td{font-size:13px;padding:6px 8px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--line);margin-bottom:18px}
+.kpis div{padding:12px 12px 12px 0}
+.kpis div+div{padding-left:12px;border-left:1px solid var(--line)}
+.kpis b{display:block;font:500 20px/1.2 var(--mono);font-variant-numeric:tabular-nums;margin-top:6px}
+.formula{font:400 12.5px/1.7 var(--mono);color:var(--graphite);background:var(--sheet);border:1px solid var(--line);padding:12px 14px;margin-top:14px;overflow-x:auto}
+.ren-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;margin-top:28px}
+.gtitle td{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--hatch);padding:8px 10px}
+tr.pick{cursor:pointer}
+tr.pick:hover td{background:var(--hatch)}
+tr.pick.sel td{background:var(--hatch);font-weight:600}
+.pres td input{width:90px;background:var(--field);border:1px solid var(--line-strong);padding:4px 6px;font:13px var(--mono);text-align:right;border-radius:2px}
+.x{background:none;border:0;cursor:pointer;color:var(--mute);font-size:16px;padding:0 4px}
+.verdict{display:inline-block;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;margin-top:10px}
+.verdict.ok{background:#DCE8DA;color:#27502A}.verdict.no{background:#F0DCD6;color:#7A2E1E}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .verdict.ok{background:#22382A;color:#A9D3AE}:root:not([data-theme="light"]) .verdict.no{background:#3E2520;color:#E8B0A3}}
+:root[data-theme="dark"] .verdict.ok{background:#22382A;color:#A9D3AE}:root[data-theme="dark"] .verdict.no{background:#3E2520;color:#E8B0A3}
+.doc-box{border-top:1px dashed var(--line-strong);margin-top:18px;padding-top:16px}
+.field input[type=text],.field input[type=date]{font-family:var(--body)}
+.logo-img{height:34px;width:auto;display:block}
+#print-area{display:none}
+@media print{
+  @page{size:letter;margin:12mm}
+  @page wide{size:letter landscape;margin:10mm}
+  body{background:#fff!important;padding:0!important}
+  body>*:not(#print-area){display:none!important}
+  #print-area{display:block!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#1D1E20;font:10.5px/1.45 "Public Sans",Arial,sans-serif}
+  #print-area.wide{page:wide}
+  .pd-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1D1E20;padding-bottom:8px;margin-bottom:10px}
+  .pd-head img{height:46px}
+  .pd-title{font:800 20px/1 "Archivo","Arial Narrow",Arial;letter-spacing:.02em;text-transform:uppercase;text-align:right}
+  .pd-meta{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:3px 12px;margin:0 0 12px;font-size:10.5px}
+  .pd-meta b{font:600 9px "IBM Plex Mono",monospace;letter-spacing:.08em;color:#555;text-transform:uppercase;align-self:center}
+  #print-area table{width:100%;border-collapse:collapse;font-size:9.5px}
+  #print-area th{background:#2B2C2F;color:#fff;font:600 8.5px "IBM Plex Mono",monospace;letter-spacing:.05em;text-transform:uppercase;padding:5px 5px;border:1px solid #2B2C2F;text-align:left}
+  #print-area th.grp{text-align:center;background:#4B4D51}
+  #print-area td{border:1px solid #C9C9C4;padding:4px 5px;vertical-align:top}
+  #print-area td.r,#print-area th.r{text-align:right}
+  #print-area tr.part td{background:#E6E6E2;font-weight:700;text-transform:uppercase}
+  #print-area tr.tot td{font-weight:700;background:#F2F2F0}
+  #print-area tr.grand td{font-weight:800;background:#D9D9D4;font-size:10.5px}
+  #print-area .n{font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+  .pd-notes{margin-top:12px;font-size:9.5px;color:#333}
+  .pd-notes li{margin:1px 0}
+  .pd-foot{margin-top:14px;display:flex;justify-content:space-between;border-top:1px solid #1D1E20;padding-top:6px;font-size:9px;color:#444}
+  .pd-sum{margin-left:auto;width:45%;margin-top:8px}
+  .pd-sum td{font-size:10.5px}
+  tr{break-inside:avoid}
+}
+@media (max-width:860px){.ren-grid{grid-template-columns:1fr}.index{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){#pr-head{grid-template-columns:1fr 1fr!important}}
+@media (max-width:520px){.alc{grid-template-columns:1fr}.kpis{grid-template-columns:1fr}.kpis div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+</style>
+<div class="wrap">
+<header class="top"><div class="wrap">
+  <a class="brand" href="#"><span class="mark" id="brand-mark">FV</span><span><b>Arq. Francisco Valenzuela</b><small>Herramientas internas</small></span></a>
+  <span class="chip">Privado</span>
+</div></header>
+<!-- HERRAMIENTAS -->
+<section class="view" id="v-herramientas">
+  <p class="eyebrow">Uso interno · no compartir</p>
+  <h2 style="font-size:clamp(30px,5vw,48px);font-weight:800;font-stretch:80%;text-transform:uppercase;margin:10px 0 22px">Herramientas de obra y precios</h2>
+  <div class="tool-tabs" role="tablist">
+    <button role="tab" data-t="hon">Honorarios</button>
+    <button role="tab" data-t="int">Internacional</button>
+    <button role="tab" data-t="par">Costo paramétrico</button>
+    <button role="tab" data-t="ren">Rendimientos</button>
+    <button role="tab" data-t="cat">Catálogo de conceptos</button>
+    <button role="tab" data-t="res">Método residual</button>
+  </div>
+
+  <!-- Honorarios México -->
+  <div class="tool" id="t-hon">
+    <div class="panel">
+      <div class="field"><label for="h-m2">Superficie del proyecto (m²)</label><input id="h-m2" type="number" min="1" step="any" value="340"></div>
+      <div class="field"><label for="h-tipo">Tipo de construcción</label><select id="h-tipo"></select></div>
+      <div class="field"><label for="h-reg">Región</label><select id="h-reg"></select><span class="hint">Factor regional del arancel. Frontera y zonas de mayor costo: 1.05–1.10.</span></div>
+      <div class="field"><label>Costo de obra</label>
+        <div class="seg"><label><input type="radio" name="h-modo" value="arancel" checked>Base del arancel</label><label><input type="radio" name="h-modo" value="propio">Mi costo por m²</label></div></div>
+      <div class="field"><label for="h-cmb" id="h-cmb-l">Costo base ($/m²)</label><input id="h-cmb" type="number" min="0" step="any" value="8025"><span class="hint" id="h-cmb-h">Base del arancel: $8,025/m² (2022). Se multiplica por el factor del tipo de construcción.</span></div>
+      <div class="field" style="margin-bottom:6px"><label>Alcances <span class="num" id="h-count" style="color:var(--mute)"></span></label></div>
+      <div class="alc" id="h-alc"></div>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn ghost sm" data-alc="h" data-set="basic">Solo arquitectura</button><button class="btn ghost sm" data-alc="h" data-set="casa">Casa completa</button><button class="btn ghost sm" data-alc="h" data-set="all">Todos</button></div>
+      <div class="doc-box">
+        <p class="eyebrow" style="margin:0 0 12px">Propuesta para imprimir</p>
+        <div class="field"><label for="h-proy">Proyecto</label><input id="h-proy" type="text" placeholder="Casa habitación"></div>
+        <div class="field"><label for="h-cli">Cliente</label><input id="h-cli" type="text" placeholder="Nombre del cliente"></div>
+        <div class="two"><div class="field"><label for="h-ubi">Ubicación</label><input id="h-ubi" type="text" placeholder="Hermosillo, Sonora"></div>
+        <div class="field"><label for="h-fecha">Fecha</label><input id="h-fecha" type="date"></div></div>
+        <div class="field"><label for="h-pago">Forma de pago</label><input id="h-pago" type="text" placeholder="Ej. 40 % anticipo, 30 % anteproyecto, 30 % entrega"></div>
+        <button class="btn" id="h-print">Imprimir propuesta / PDF</button>
+        <p class="hint" style="margin:8px 0 0">En el sitio publicado abre el diálogo de impresión; elige "Guardar como PDF".</p>
+      </div>
+    </div>
+    <div class="result" id="h-out"></div>
+  </div>
+
+  <!-- Internacional -->
+  <div class="tool" id="t-int" hidden>
+    <div class="panel">
+      <div class="field"><label>Valor de la obra</label>
+        <div class="seg"><label><input type="radio" name="i-modo" value="propio" checked>Conozco el precio por m²</label><label><input type="radio" name="i-modo" value="usd">Estimación en USD</label></div></div>
+      <div class="two" id="i-propio">
+        <div class="field"><label for="i-cmb">Precio por m²</label><input id="i-cmb" type="number" min="0" step="any" value="950"></div>
+        <div class="field"><label for="i-mon">Moneda</label><input id="i-mon" type="text" value="USD" maxlength="5" style="text-transform:uppercase"></div>
+      </div>
+      <div class="field"><label for="i-tipo">Tipo de construcción</label><select id="i-tipo"></select><span class="hint" id="i-tipo-h">Con precio propio, el tipo solo sirve de referencia; con estimación en USD define el costo por m².</span></div>
+      <div class="field"><label for="i-m2">Superficie del proyecto (m²)</label><input id="i-m2" type="number" min="1" step="any" value="340"></div>
+      <div class="field" style="margin-bottom:6px"><label>Alcances <span class="num" id="i-count" style="color:var(--mute)"></span></label></div>
+      <div class="alc" id="i-alc"></div>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn ghost sm" data-alc="i" data-set="basic">Solo arquitectura</button><button class="btn ghost sm" data-alc="i" data-set="casa">Casa completa</button><button class="btn ghost sm" data-alc="i" data-set="all">Todos</button></div>
+    </div>
+    <div class="result" id="i-out"></div>
+  </div>
+
+  <!-- Paramétrico -->
+  <div class="tool" id="t-par" hidden>
+    <div class="panel">
+      <div class="field"><label for="p-tip">Tipología</label><select id="p-tip"></select></div>
+      <div class="two">
+        <div class="field"><label for="p-m2">Construcción cubierta (m²)</label><input id="p-m2" type="number" min="0" step="any" value="340"></div>
+        <div class="field"><label for="p-ext">Exteriores (m²)</label><input id="p-ext" type="number" min="0" step="any" value="80"><span class="hint">Cochera, patios, andadores. Al 35 %.</span></div>
+      </div>
+      <div class="field"><label for="p-cm2">Costo por m² ($)</label><input id="p-cm2" type="number" min="0" step="any"><span class="hint">Se llena con la referencia de la tipología; cámbialo con tus precios.</span></div>
+      <div class="field"><label for="p-ind">Indirectos y utilidad (%)</label><input id="p-ind" type="number" min="0" step="0.5" value="18"></div>
+      <div style="margin-top:4px"><button class="btn ghost sm" id="p-to-hon">Usar este costo en honorarios</button></div>
+    </div>
+    <div class="result">
+      <h3>Costo total estimado</h3>
+      <div class="big num" id="p-total">—</div>
+      <div class="num" style="color:var(--mute);font-size:13px;margin-top:6px" id="p-sub"></div>
+      <div class="tbl-wrap" style="margin-top:22px"><table>
+        <thead><tr><th>Partida</th><th class="r">Peso</th><th class="r">Importe</th></tr></thead>
+        <tbody id="p-rows"></tbody>
+      </table></div>
+      <p class="note">Valores de referencia para Sonora, 2026, a costo directo. Sirven para un orden de magnitud en anteproyecto; el presupuesto definitivo sale del catálogo de conceptos.</p>
+    </div>
+  </div>
+
+  <!-- Rendimientos -->
+  <div id="t-ren" hidden>
+    <div class="tool">
+      <div class="panel">
+        <div class="field"><label for="r-con">Concepto</label><select id="r-con"></select><span class="hint">También puedes elegirlo tocando una fila de la tabla.</span></div>
+        <div class="two">
+          <div class="field"><label for="r-cant">Cantidad</label><input id="r-cant" type="number" min="0" step="any" value="120"></div>
+          <div class="field"><label for="r-cuad">Cuadrillas</label><input id="r-cuad" type="number" min="1" step="1" value="1"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="r-aj">Ajuste de rendimiento (%)</label><input id="r-aj" type="number" step="1" value="0"><span class="hint">−15 en verano o a más de 3 m de altura.</span></div>
+          <div class="field"><label for="r-desp">Desperdicio (%)</label><input id="r-desp" type="number" min="0" step="1" value="5"></div>
+        </div>
+      </div>
+      <div class="result">
+        <h3>Tiempo de ejecución</h3>
+        <div class="big num" id="r-jor">—</div>
+        <div class="num" style="color:var(--mute);font-size:13px;margin-top:6px" id="r-sub"></div>
+        <div class="tbl-wrap" style="margin-top:22px"><table>
+          <thead><tr><th>Material</th><th class="r">Por unidad</th><th class="r">Total</th><th>Unidad</th></tr></thead>
+          <tbody id="r-rows"></tbody>
+        </table></div>
+      </div>
+    </div>
+    <div class="sec-head" style="margin-top:44px"><h2 style="font-size:20px">Tabla de rendimientos</h2>
+      <div class="search" style="margin:0"><input id="r-q" type="search" placeholder="Buscar actividad" aria-label="Buscar actividad" style="min-width:220px"></div></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Actividad</th><th>Unidad</th><th class="r">Rendimiento</th><th class="r">Inverso</th><th>Cuadrilla</th></tr></thead>
+      <tbody id="r-table"></tbody>
+    </table></div>
+    <p class="note">Rendimientos promedio por jornada de 8 h con la cuadrilla indicada. Son referencia para presupuestar; mide los de tu propia gente en obra y ajústalos.</p>
+  </div>
+
+  <!-- Catálogo -->
+  <div id="t-cat" hidden>
+    <div class="search">
+      <input id="c-q" type="search" placeholder="Buscar concepto o clave" aria-label="Buscar concepto">
+      <select id="c-part" aria-label="Partida"></select>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Clave</th><th>Concepto</th><th>Unidad</th><th class="r">Mano de obra</th><th class="r">Materiales</th><th class="r">P.U.</th><th></th></tr></thead>
+      <tbody id="c-rows"></tbody>
+    </table></div>
+    <p class="note" id="c-count"></p>
+
+    <div class="sec-head" style="margin-top:40px"><h2 style="font-size:20px">Presupuesto rápido</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="pr-copy">Copiar para Excel</button><button class="btn ghost sm" id="pr-clear">Vaciar</button><button class="btn sm" id="pr-print">Imprimir presupuesto / PDF</button></div></div>
+    <div class="doc-box" id="pr-head" style="margin:0 0 16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+      <div class="field" style="margin:0"><label for="pr-proy">Proyecto</label><input id="pr-proy" type="text" placeholder="Nombre del proyecto"></div>
+      <div class="field" style="margin:0"><label for="pr-cli">Cliente</label><input id="pr-cli" type="text" placeholder="Nombre del cliente"></div>
+      <div class="field" style="margin:0"><label for="pr-ubi">Ubicación</label><input id="pr-ubi" type="text" placeholder="Hermosillo, Sonora"></div>
+      <div class="field" style="margin:0"><label for="pr-fecha">Fecha</label><input id="pr-fecha" type="date"></div>
+    </div>
+    <div class="tbl-wrap"><table class="pres">
+      <thead><tr><th>Clave</th><th>Concepto</th><th>Unidad</th><th class="r">Cantidad</th><th class="r">M.O.</th><th class="r">Materiales</th><th class="r">C.D.</th><th class="r">P.U.</th><th class="r">Importe</th><th></th></tr></thead>
+      <tbody id="pr-rows"></tbody>
+      <tfoot><tr><td colspan="4">Totales</td><td class="r num" id="pr-mo"></td><td class="r num" id="pr-mat"></td><td class="r num" id="pr-cd"></td><td></td><td class="r num" id="pr-sub"></td><td></td></tr>
+      <tr><td colspan="8" style="font-weight:400">IVA 16 %</td><td class="r num" style="font-weight:400" id="pr-iva"></td><td></td></tr>
+      <tr><td colspan="8">Total con IVA</td><td class="r num" id="pr-tot"></td><td></td></tr></tfoot>
+    </table></div>
+    <p class="note">Precios de tu presupuesto G-VENTURA REALES (Hermosillo, 2026). Mano de obra, materiales y precio unitario se pueden cambiar en la tabla; se guardan en este navegador.</p>
+  </div>
+
+  <!-- Método residual -->
+  <div class="tool" id="t-res" hidden>
+    <div class="panel">
+      <div class="two">
+        <div class="field"><label for="x-ter">Terreno (m²)</label><input id="x-ter" type="number" min="0" step="any" value="600"></div>
+        <div class="field"><label for="x-pide">Precio que piden ($)</label><input id="x-pide" type="number" min="0" step="any" value="2400000"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="x-cons">Construcción total (m²)</label><input id="x-cons" type="number" min="0" step="any" value="720"></div>
+        <div class="field"><label for="x-vend">Área vendible (%)</label><input id="x-vend" type="number" min="0" max="100" step="1" value="85"><span class="hint">Descuenta circulaciones y áreas comunes.</span></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="x-pv">Precio de venta ($/m² vendible)</label><input id="x-pv" type="number" min="0" step="any" value="32000"></div>
+        <div class="field"><label for="x-cc">Costo de construcción ($/m²)</label><input id="x-cc" type="number" min="0" step="any" value="15500"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="x-ind">Proyecto, licencias e indirectos (% de construcción)</label><input id="x-ind" type="number" min="0" step="0.5" value="12"></div>
+        <div class="field"><label for="x-com">Comercialización (% de ventas)</label><input id="x-com" type="number" min="0" step="0.5" value="5"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="x-fin">Financiamiento (% de construcción)</label><input id="x-fin" type="number" min="0" step="0.5" value="4"></div>
+        <div class="field"><label for="x-ut">Utilidad esperada (% de ventas)</label><input id="x-ut" type="number" min="0" step="0.5" value="18"></div>
+      </div>
+    </div>
+    <div class="result" id="x-out"></div>
+  </div>
+</section>
+
+
+<footer class="tb">
+  <div><span>Documento</span>Herramientas internas — precios y cálculo</div>
+  <div><span>Base de precios</span>G-VENTURA REALES · Hermosillo 2026</div>
+  <div><span>Uso</span>Interno</div>
+  <div><span>Lámina</span><span class="num" id="lamina" style="font-size:12px;letter-spacing:0;text-transform:none;color:var(--ink);margin:0">H-01 · 2026</span></div>
+</footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<div id="print-area" aria-hidden="true"></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const mxn=n=>'$'+Math.round(n).toLocaleString('es-MX');
+const fx=(n,d=2)=>Number(n).toLocaleString('es-MX',{maximumFractionDigits:d,minimumFractionDigits:0});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),1600)}
+function copy(txt){try{navigator.clipboard.writeText(txt).then(()=>toast('Copiado'),()=>toast('No se pudo copiar; selecciona el texto'))}catch(e){toast('No se pudo copiar; selecciona el texto')}}
+const store={get(k,d){try{const v=localStorage.getItem('fv:'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('fv:'+k,JSON.stringify(v))}catch(e){}}};
+
+const LOGO='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTc0LjAwMDAwMCAyMjExLjAwMDAwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCI+IDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDIyMTEuMDAwMDAwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIiBmaWxsPSIjMjUyODJBIiBzdHJva2U9Im5vbmUiPiA8cGF0aCBkPSJNOTU1IDIyMTAxIGMtMyAtNiAtMjcgLTEzIC01MyAtMTcgLTg4IC0xMiAtMjU0IC03NiAtMzMwIC0xMjYgLTI0IC0xNSAtNDUgLTI4IC00OCAtMjggLTE1IDAgLTEyOCAtOTcgLTE5NCAtMTY2IC0xNDUgLTE1MyAtMjM2IC0zMjMgLTI4MSAtNTI4IC0zMCAtMTQxIC0yNSAtMjMyMiA2IC0yMzE4IDExIDEgNjIgOSAxMTQgMTcgMTM3IDIyIDEwNTIxIDIyIDEwNjczIDAgMzcxIC01MyA2ODEgLTI5OCA4MTAgLTY0MCAzNCAtOTAgNDAgLTExNSA1NCAtMjIwIDIwIC0xNjEgMjAgLTEyNjAyIDAgLTEyNzcwIC0zMSAtMjQ3IC0xMzQgLTQ0OSAtMzE2IC02MTcgLTcxIC02NyAtMjM1IC0xNzYgLTI4NSAtMTkwIC0xMSAtNCAtNDUgLTE2IC03NSAtMjcgLTE1NiAtNjAgLTE4MSAtNjEgLTEzODUgLTYxIC0xMTgxIDAgLTExOTkgMSAtMTM0OSA1MSAtMzU0IDExOSAtNTk4IDM5OSAtNjgzIDc4NCAtMTcgNzYgLTE4IDMyMyAtMjAgNDgwNSAtMiAyNTk5IC01IDQ3MzEgLTggNDczOCAtMyA5IC03NTAgMTIgLTM2ODcgMTIgLTIwNDQgMCAtMzcwMSA0IC0zNzIzIDkgLTIyIDUgLTY0IDEyIC05MiAxNSBsLTUzIDcgMCAtNjkzNiBjMCAtNzU0OCAtNCAtNjk3MiA1MSAtNzE0MCA3MyAtMjE5IDI5OCAtNTEwIDQ0OSAtNTc4IDggLTQgMjkgLTE2IDQ1IC0yNyAxNyAtMTEgMzkgLTI0IDUwIC0yOSAxMTUgLTUzIDIwNyAtODQgMjgyIC05NiAyNCAtNCA0NSAtMTEgNDkgLTE2IDMgLTUgMzU1MiAtOSA4OTE0IC05IDUzNjIgMCA4OTExIDQgODkxNCA5IDQgNSAyNSAxMiA0OSAxNiA0MDkgNjUgNzY4IDQyNSA4NjIgODY1IDI3IDEzMCAxOCAyMzA2IC0xMCAyMzAzIC0xMSAtMSAtNjAgLTkgLTExMCAtMTcgLTEyOCAtMjIgLTIyMTcgLTIzIC0yMzY3IC0xIC0zODQgNTQgLTcwNyAzMTggLTgyNCA2NzIgLTU4IDE3NyAtNTQgLTM0NiAtNTQgNzIxNiAwIDQ5MTkgMyA2OTY5IDExIDcwMTYgNzUgNDYxIDQxMiA3OTMgODY5IDg1NiAxNTggMjIgMjIyMyAyMiAyMzYxIDAgNTIgLTggMTAzIC0xNiAxMTQgLTE3IDI4IC00IDM3IDIxNzIgMTAgMjMwMiAtNDkgMjI4IC0xNDIgMzk4IC0zMDkgNTY2IC0xNjYgMTY1IC0zNTUgMjY4IC01NTMgMjk5IC0yNCA0IC00NSAxMSAtNDkgMTYgLTcgMTIgLTE3ODIxIDEyIC0xNzgyOSAweiIvPiA8L2c+IDwvc3ZnPiA=';
+if(LOGO&&!LOGO.startsWith('__')){const m=$('#brand-mark');m.outerHTML=`<img class="logo-img" src="${LOGO}" alt="Arq. Francisco Valenzuela">`}
+document.addEventListener('click',e=>{const c=e.target.closest('[data-copy]');if(c)copy(c.dataset.copy)});
+const TOOLS=['hon','int','par','ren','cat','res'];
+function tool(id){if(!TOOLS.includes(id))id='hon';$$('.tool-tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));
+  TOOLS.forEach(x=>$('#t-'+x).hidden=x!==id);store.set('tool',id)}
+$$('.tool-tabs button').forEach(b=>b.onclick=()=>tool(b.dataset.t));
+
+/* ---------- datos del arancel ---------- */
+const TIPOS=[["A001 Asilos, Orfelinatos",1.39],["A002 Casas de Empeño",1.06],["A003 Centros de Rehabilitación",1.55],["A004 Centros de Protección",1.24],["A005 Dormitorios Públicos",1.2],["A006 Guarderías",1.16],["B100 Agencias de Vehículos",1.45],["B110 Mercados",1.04],["B111 Supermercados y Autoservicios",1.69],["B112 Interiorismo Comercial",1.66],["B113 Tiendas de Departamentos",1.94],["B114 Tiendas Especializadas",2.07],["B115 Locales Comerciales",1.37],["B116 Stands",0.62],["B200 Centros de Abasto",1.04],["B300 Centros Comerciales",2.12],["B400 Centros de Exposiciones",1.86],["B500 Edificios Comerciales y Oficinas",1.79],["B600 Farmacias y Droguerías",1.89],["B700 Ferreterías y Tlapalerías",1.89],["B800 Joyerías",2.07],["B900 Librerías",1.89],["C100 Agencias de Noticias",1.45],["C110 Prensa",1.24],["C111 Radiodifusoras",1.59],["C200 Centrales Telefónicas",1.55],["C300 Centros de Internet",1.14],["C400 Edificio de Correos",1.24],["C500 Edificios de Telégrafos",1.24],["C600 Estudios de Audio y Video",2.28],["C700 Estudios de Cine",1.97],["C800 Estudios de T.V.",2.17],["C900 Paquetería y Envíos",1.14],["D110 Aeropuertos, Terminales Aéreas",2.07],["D120 Aeropuertos, Hangares",1.27],["D130 Aeropuertos, Torres de Control",2.69],["D140 Aeropuertos, Obra Exterior",0.31],["D200 Casetas de Peaje",1.24],["D300 Centrales de Autobuses",1.35],["D400 Estaciones de Ferrocarril",1.35],["D500 Estaciones de Transporte Colectivo",1.76],["D600 Instalaciones Portuarias",1.76],["D700 Paraderos de Autobuses",1.04],["D800 Talleres de Mantenimiento",0.58],["D900 Taquillas y Salas de Espera",1.04],["E100 Auditorios",1.35],["E110 Salas de Concierto",2.17],["E111 Talleres de Arte",1.24],["E112 Teatros",2.07],["E200 Bibliotecas",1.45],["E300 Casas de Cultura",1.24],["E400 Centros de Arte",1.24],["E500 Editoriales",1.35],["E600 Galerías de Arte",1.55],["E700 Monumentos",2.48],["E800 Museos",1.55],["E900 Pabellones Internacionales y Nacionales",2.07],["F100 Albercas Recreativas",3.01],["F200 Boliche",1.45],["F300 Canchas Descubiertas",0.21],["F400 Clubes Deportivos",1.24],["F500 Gimnasios y Canchas Cubiertas",0.83],["F610 Club de Golf: Casa Club",1.24],["F620 Club de Golf: Campo de Golf",0.04],["F710 Club de Tiro: Casa Club",1.24],["F720 Club de Tiro: Campo de Tiro",0.04],["F800 Unidades Deportivas",1.04],["G100 Academias",1.08],["G110 Escuelas de Educación Especial",1.45],["G111 Escuelas de Educación Superior",1.45],["G120 Internados",1.24],["G130 Laboratorios",1.45],["G140 Laboratorios de Enseñanza",1.45],["G150 Normales",1.39],["G200 Centros de Investigación",1.45],["G300 Campus de Educación Superior",1.35],["G400 Escuelas Preescolares",1.15],["G500 Escuelas Primarias",1.15],["G600 Escuelas Secundarias",1.15],["G700 Escuelas Preparatorias",1.39],["G800 Escuelas Vocacionales",1.39],["G900 Escuelas Técnicas",1.39],["H100 Bancos",1.2],["H200 Casas de Bolsa",1.28],["H300 Casas de Cambio",1.28],["H400 Oficinas Centrales y Regionales",1.22],["H500 Organizaciones Auxiliares",1.2],["I100 Archivos",1.14],["I210 Bases Militares: Edificios",1.35],["I220 Bases Militares: Obra Exterior",0.06],["I300 Cuarteles Militares",1.2],["I400 Oficinas Estatales",1.38],["I500 Oficinas Federales",1.38],["I600 Oficinas Municipales",1.05],["I700 Palacios de Gobierno",1.64],["I800 Sedes Judiciales",1.59],["I900 Sedes Legislativas",1.59],["J100 Condominios de Interés Social",1.04],["J200 Condominios de Interés Medio",1.34],["J300 Condominios Residenciales",1.57],["J400 Edificios de Departamentos",1.49],["J500 Vivienda Progresiva",0.84],["J600 Vivienda de Interés Social",1],["J700 Vivienda de Interés Medio",1.14],["J800 Casa-Habitación Residencial",1.28],["J900 Residencias de Lujo",1.89],["K100 Industria: Áreas Exteriores",0.06],["K200 Industria: Bodegas y Almacenes",0.55],["K300 Industria: Laboratorios",1.22],["K400 Industria: Naves Industriales",0.86],["K500 Industria: Oficinas",1.18],["K600 Industria: Servicios del Personal",1.14],["K700 Industria: Talleres",0.57],["L100 Casetas de Seguridad Pública",1.14],["L400 Cuarteles de Seguridad Pública",1.2],["L700 Laboratorios Especializados",1.22],["L800 SEMEFOs",1.3],["M100 Arenas Deportivas",1.3],["M110 Palenques",1.3],["M120 Parques",0.04],["M121 Planetarios",1.86],["M130 Plazas Públicas",0.05],["M140 Plazas de Toros",1.41],["M151 Salón de Fiestas: Edificios",1.55],["M152 Salón de Fiestas: Obra Exterior",0.06],["M200 Autódromos",1.86],["M300 Billares",1.04],["M400 Centros Nocturnos",1.3],["M500 Cines",1.76],["M600 Estadios",1.32],["M700 Hipódromos",1.86],["M800 Jardines (zoológicos, botánicos)",0.04],["M900 Lienzos Charros",1.45],["N100 Basílicas y Catedrales",1.86],["N200 Capillas",1.97],["N300 Casas Pastorales",1.3],["N400 Conventos y Monasterios",1.2],["N500 Iglesias",1.76],["N600 Sede Arzobispal",1.55],["O100 Centros de Rehabilitación Física",1.14],["O110 Unidades de Servicio Médico",1.04],["O111 Centros Antirrábicos",1.04],["O200 Centros de Salud",1.08],["O300 Clínicas",1.07],["O400 Consultorios",1.08],["O500 Dispensarios",1.04],["O600 Laboratorios de Análisis Clínico",1.24],["O700 Laboratorios de Rayos X",1.24],["O800 Hospitales",1.92],["O900 Laboratorios Especializados",1.22],["P100 Agencias de Viaje",1.14],["P110 Moteles",1.45],["P111 Trailer Park",0.06],["P112 Spas",2.07],["P210 Balnearios: Edificios",1.14],["P220 Balnearios: Obra Exterior",0.06],["P300 Camping",0.05],["P400 Centros de Convenciones",2.01],["P500 Complejos Hoteleros",3.39],["P600 Complejos y Hoteles (Obra Exterior)",0.06],["P700 Hoteles de Cinco Estrellas",2.82],["P800 Hoteles de Cuatro Estrellas",1.94],["P900 Hoteles de Tres Estrellas o Menos",1.55],["Q100 Bares y Cantinas",1.86],["Q200 Cafeterías",1.45],["Q300 Cocinas Rápidas",1.24],["Q400 Comedores",1.18],["Q500 Restaurantes",1.76],["R100 Baños Públicos",1.33],["R200 Estacionamientos Descubiertos",1],["R300 Estacionamientos Cubiertos",1.16],["R400 Gasolineras",1.33]];
+const ALC=[
+ ['Diseño conceptual',11,['Programa arquitectónico definitivo','Memoria expositiva del concepto arquitectónico','Esquema funcional (plantas básicas)','Imagen conceptual (perspectivas volumétricas)','Estimado del costo de la obra','Dictamen de uso de suelo','Dictamen de impacto ambiental']],
+ ['Anteproyecto',20,['Memoria descriptiva del proyecto','Plantas, cortes y fachadas a escala','Apuntes en perspectiva','Criterio estructural','Criterios de instalaciones','Especificaciones generales','Estimado de costo a nivel de partidas','Dictamen del INAH']],
+ ['Diseño ejecutivo',35,['Planos arquitectónicos detallados (plantas, cortes y fachadas)','Detalles constructivos','Planos de herrería, cancelería y carpintería','Planos de albañilería y acabados','Catálogo de especificaciones particulares','Perspectivas detalladas','Presupuesto con cantidades de obra y análisis de precios unitarios','Programa de obra']],
+ ['Estructura',12,['Memoria de cálculo estructural','Planos de cimentación con especificaciones','Planos estructurales con especificaciones','Detalles estructurales']],
+ ['Instalación eléctrica',10,['Memoria técnica de ingeniería eléctrica','Planos de instalación eléctrica con especificaciones','Relación de equipos fijos y sus características','Cuadro de cargas','Diagrama unifilar']],
+ ['Instalación hidrosanitaria',8,['Memoria técnica hidrosanitaria','Planos de instalación hidráulica','Planos de instalación sanitaria','Relación de equipos fijos hidrosanitarios','Cuadro de gastos hidráulicos y descargas','Isométricos y despiece hidrosanitario']],
+ ['Instalación de gas',4,['Memoria técnica de gas','Planos de instalación de gas','Relación de equipos fijos de gas','Cuadro de gasto de gas','Isométricos y despiece de gas']],
+ ['Aire acondicionado',11,['Memoria técnica de aire acondicionado','Planos de instalación de aire acondicionado','Relación de equipos fijos','Isométricos y despiece de ductos']],
+ ['Voz y datos',5,['Memoria técnica de voz y datos','Planos de voz y datos','Relación de equipos fijos']],
+ ['Telefonía y sonido',5,['Memoria técnica de telefonía y sonido','Planos de telefonía, sonido, TV y circuito cerrado','Relación de equipos fijos']],
+ ['Gases medicinales',8,['Memoria técnica de gases medicinales','Planos de gases medicinales','Relación de equipos fijos']],
+ ['Vapor y condensados',8,['Memoria técnica de vapor y condensados','Planos de vapor y condensados','Relación de equipos fijos']],
+ ['Pararrayos',3,['Memoria técnica de pararrayos','Planos de pararrayos','Relación de equipo fijo']],
+ ['Contra incendio',8,['Memoria técnica contra incendio','Planos de red contra incendio','Relación de equipos fijos']],
+];
+const SETS={basic:[0,1,2],casa:[0,1,2,3,4,5,6,7],all:ALC.map((_,i)=>i)};
+const REG=[['Hermosillo',1.00],['Cd. Obregón',1.00],['Sur de Sonora (Navojoa)',1.00],['Guaymas – San Carlos',1.05],['Nogales',1.05],['Agua Prieta',1.05],['San Luis Río Colorado',1.05],['Baja California y BCS',1.05],['Ciudad de México',1.05],['Nuevo León',1.05],['Ciudad Juárez',1.10],['Jalisco y Estado de México',1.00],['Resto del país',0.95]];
+const FS=s=>15-2.5*Math.log10(s);
+const USD_M2=5433*0.055555;
+
+function fillTipos(sel,def){sel.innerHTML=TIPOS.map((t,i)=>`<option value="${i}" ${t[0].startsWith(def)?'selected':''}>${esc(t[0])} · ${t[1].toFixed(2)}</option>`).join('')}
+function fillAlc(p){ $('#'+p+'-alc').innerHTML=ALC.map((a,i)=>`<label><input type="checkbox" id="${p}-a${i}" ${i<4?'checked':''}><span>${a[0]} <span class="num" style="color:var(--mute)">${a[1]}%</span></span></label>`).join('')}
+fillTipos($('#h-tipo'),'J800');fillTipos($('#i-tipo'),'J800');fillAlc('h');fillAlc('i');
+$('#h-reg').innerHTML=REG.map((r,i)=>`<option value="${i}">${r[0]} · ${r[1].toFixed(2)}</option>`).join('');
+document.addEventListener('click',e=>{const b=e.target.closest('[data-alc]');if(!b)return;const p=b.dataset.alc,s=SETS[b.dataset.set];
+  ALC.forEach((_,i)=>$('#'+p+'-a'+i).checked=s.includes(i));calcAll();save()});
+
+function honResult(o){
+  // o: {out,obra,S,fr,cur,prefix,obraTxt}
+  const f=FS(o.S), H=o.obra*f*o.fr/100, money=n=>(o.cur==='MXN'?mxn(n):o.cur+' '+Math.round(n).toLocaleString('es-MX'));
+  let tot=0,det='',n=0;
+  ALC.forEach((a,i)=>{if(!$('#'+o.prefix+'-a'+i).checked)return;n++;
+    const pc=a[1]/a[2].length, each=Math.round(H*pc/100), sub=each*a[2].length;tot+=sub;
+    det+=`<details class="alcance"><summary><span>${i+1}. ${a[0]}</span><span class="num" style="color:var(--mute)">${a[1]} %</span><span class="num">${money(sub)}</span></summary>
+    <div class="tbl-wrap"><table><tbody>${a[2].map((c,j)=>`<tr><td class="num" style="color:var(--mute)">${i+1}.${j+1}</td><td>${c}</td><td class="r num">${fx(pc,2)} %</td><td class="r num">${money(each)}</td></tr>`).join('')}</tbody></table></div></details>`});
+  $('#'+o.prefix+'-count').textContent='· '+n+' seleccionados';
+  const ok=o.S>0&&o.obra>0;
+  $(o.out).innerHTML=ok?`<h3>Honorarios de los alcances</h3>
+    <div class="big num">${money(tot)} <small>${o.cur==='MXN'?'MXN sin IVA':o.cur}</small></div>
+    <div class="num" style="color:var(--mute);font-size:13px;margin:6px 0 20px">${o.cur==='MXN'?'Con IVA 16 %: '+mxn(tot*1.16)+' · ':''}${money(o.S?tot/o.S:0)}/m² · ${fx(o.obra?tot/o.obra*100:0,2)} % del costo de obra</div>
+    <div class="kpis"><div><span class="eyebrow">Costo estimado de obra</span><b>${money(o.obra)}</b></div><div><span class="eyebrow">Honorarios de referencia</span><b>${money(H)}</b></div><div><span class="eyebrow">Factor de superficie</span><b>${fx(f,4)}</b></div></div>
+    <div style="padding-left:0">${det||'<p class="note">Selecciona al menos un alcance.</p>'}</div>
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--ink);font-weight:600"><span>Total de alcances</span><span class="num">${money(tot)}</span></div>
+    <div class="formula">Costo de obra = ${o.obraTxt}<br>Factor de superficie = 15 − 2.5 × log₁₀(${fx(o.S)}) = ${fx(f,4)}<br>Honorarios de referencia = costo de obra × ${fx(f,4)} × ${o.fr.toFixed(2)} ÷ 100 = ${money(H)}<br>Cada concepto = honorarios de referencia × su porcentaje; se redondea y se suma.</div>
+    <p class="note">Método del arancel de honorarios de la Federación de Colegios de Arquitectos de la República Mexicana (2015), base de costo 2022. Es una referencia para cotizar; ajusta el costo por m² a precios actuales con la opción "Mi costo por m²".</p>`
+    :`<h3>Honorarios</h3><p class="note">Escribe la superficie y el costo para ver el cálculo.</p>`;
+  return {tot,H};
+}
+function hon(){
+  const S=+$('#h-m2').value||0, t=TIPOS[$('#h-tipo').value], r=REG[$('#h-reg').value], modo=document.querySelector('input[name="h-modo"]:checked').value, c=+$('#h-cmb').value||0;
+  const unit=modo==='arancel'?c*t[1]:c;
+  $('#h-cmb-l').textContent=modo==='arancel'?'Costo base del arancel ($/m²)':'Mi costo de construcción ($/m²)';
+  $('#h-cmb-h').textContent=modo==='arancel'?'Base del arancel: $8,025/m² (2022). Se multiplica por el factor del tipo ('+t[1].toFixed(2)+').':'Tu costo real por m², sin factor de tipo. Puedes traerlo del costo paramétrico.';
+  honResult({out:'#h-out',prefix:'h',S,obra:S*unit,fr:r[1],cur:'MXN',obraTxt:modo==='arancel'?`${mxn(c)}/m² × ${fx(S)} m² × ${t[1].toFixed(2)} = ${mxn(S*unit)}`:`${mxn(c)}/m² × ${fx(S)} m² = ${mxn(S*unit)}`});
+}
+$$('input[name="h-modo"]').forEach(r=>r.addEventListener('change',()=>{if(r.value==='arancel'&&r.checked)$('#h-cmb').value=8025;hon();save()}));
+function intl(){
+  const modo=document.querySelector('input[name="i-modo"]:checked').value, S=+$('#i-m2').value||0, t=TIPOS[$('#i-tipo').value];
+  const cur=modo==='usd'?'USD':(($('#i-mon').value||'').toUpperCase().trim()||'$');
+  $('#i-propio').hidden=modo==='usd';
+  const unit=modo==='usd'?USD_M2*t[1]:(+$('#i-cmb').value||0);
+  honResult({out:'#i-out',prefix:'i',S,obra:S*unit,fr:1,cur:cur==='MXN'?'MXN':cur,obraTxt:modo==='usd'?`US$ ${fx(USD_M2,2)}/m² × ${t[1].toFixed(2)} × ${fx(S)} m²`:`${fx(unit)} ${cur}/m² × ${fx(S)} m²`});
+}
+
+/* ---------- paramétrico ---------- */
+const TIP=[['Ref. VENTURA 04 real (sin cancelería, carpintería ni muebles)',11928],['Vivienda económica',9800],['Vivienda media',13500],['Residencial',18500],['Residencial plus',26000],['Local comercial (obra gris)',8500],['Nave / bodega industrial',7200]];
+const PART=[['Preliminares y cimentación',12],['Estructura (muros, castillos, losas)',26],['Albañilería y aplanados',12],['Instalación hidrosanitaria',8],['Instalación eléctrica',8],['Pisos y recubrimientos',11],['Cancelería, puertas y herrería',9],['Pintura y acabados',6],['Muebles de baño y cocina',8]];
+$('#p-tip').innerHTML=TIP.map((t,i)=>`<option value="${i}" ${i==3?'selected':''}>${t[0]} · ${mxn(t[1])}/m²</option>`).join('');
+$('#p-cm2').value=TIP[3][1];
+$('#p-tip').addEventListener('change',()=>{$('#p-cm2').value=TIP[$('#p-tip').value][1];par();save()});
+function par(){
+  const m2=+$('#p-m2').value||0,ex=+$('#p-ext').value||0,c=+$('#p-cm2').value||0,ind=+$('#p-ind').value||0;
+  const cd=m2*c+ex*c*.35,tot=cd*(1+ind/100);
+  $('#p-total').innerHTML=mxn(tot)+' <small>MXN</small>';
+  $('#p-sub').textContent=`Costo directo ${mxn(cd)} · ${m2?mxn(tot/m2):'$0'}/m² de construcción cubierta`;
+  $('#p-rows').innerHTML=PART.map(p=>`<tr><td>${p[0]}<div class="bar"><i style="width:${p[1]/26*100}%"></i></div></td><td class="r num">${p[1]} %</td><td class="r num">${mxn(cd*p[1]/100)}</td></tr>`).join('')+`<tr><td>Indirectos y utilidad</td><td class="r num">${ind} %</td><td class="r num">${mxn(cd*ind/100)}</td></tr>`;
+}
+$('#p-to-hon').onclick=()=>{const m2=+$('#p-m2').value||0,c=+$('#p-cm2').value||0,ind=+$('#p-ind').value||0;
+  $('#h-m2').value=m2;document.querySelector('input[name="h-modo"][value="propio"]').checked=true;$('#h-cmb').value=Math.round(c*(1+ind/100));tool('hon');calcAll();save();toast('Costo enviado a honorarios')};
+
+/* ---------- rendimientos ---------- */
+const MUR=[['Block de concreto 15×20×40',12.5,'pza'],['Cemento gris',0.11,'bto 50 kg'],['Arena',0.018,'m³']];
+const REN=[
+ ['Preliminares',[
+  ['Limpieza y despalme a mano','m²',60,'1 peón'],['Trazo y nivelación','m²',120,'1 topógrafo + 1 cadenero'],['Excavación a mano en material tipo I','m³',4,'1 peón'],['Excavación a mano en material tipo II','m³',3,'1 peón'],['Excavación a mano en material tipo III (caliche)','m³',1.5,'1 peón'],['Traspaleo','m³',16,'1 peón'],['Acarreo en carretilla a 20 m','m³',6,'1 peón'],['Relleno compactado con bailarina, capas de 20 cm','m³',8,'2 peones + bailarina',[['Material de banco',1.3,'m³'],['Agua',120,'L']]],['Relleno compactado con pisón de mano','m³',5,'1 peón',[['Material de banco',1.3,'m³']]]]],
+ ['Cimentación',[
+  ['Plantilla de concreto de 5 cm','m²',18,'1 oficial + 2 ayudantes',[['Cemento gris',0.25,'bto 50 kg'],['Arena',0.028,'m³'],['Grava 3/4"',0.035,'m³']]],['Cimbra en cimientos (hechura y colocación)','m²',12,'1 carpintero + 1 ayudante',[['Triplay de pino 16 mm',0.05,'hoja'],['Polín 4×4"',0.6,'pt'],['Clavo 2½"',0.15,'kg']]],['Colado en cimientos','m³',6,'1 oficial + 5 ayudantes'],['Cadena de desplante con armex','ml',25,'1 oficial + 1 ayudante',[['Armex 15-20-4',1.05,'ml'],['Concreto f\'c 200',0.03,'m³']]],['Muro de enrase de block relleno','m²',9,'1 oficial + 1 ayudante',MUR]]],
+ ['Acero y cimbra',[
+  ['Habilitado y armado de acero en cimentación','kg',180,'1 fierrero + 1 ayudante',[['Varilla corrugada',1.05,'kg'],['Alambre recocido',0.025,'kg']]],['Habilitado y armado de acero en estructura','kg',160,'1 fierrero + 1 ayudante',[['Varilla corrugada',1.05,'kg'],['Alambre recocido',0.025,'kg']]],['Cimbra en columnas','m²',8,'1 carpintero + 1 ayudante'],['Cimbra en trabes','m²',9,'1 carpintero + 1 ayudante'],['Cimbra en losas','m²',10,'1 carpintero + 1 ayudante',[['Triplay de pino 16 mm (6 usos)',0.06,'hoja'],['Polín 4×4"',0.9,'pt'],['Clavo 2½"',0.15,'kg']]]]],
+ ['Concreto',[
+  ['Concreto f\'c 150 hecho en obra','m³',4,'1 oficial + 4 ayudantes + revolvedora',[['Cemento gris',6,'bto 50 kg'],['Arena',0.52,'m³'],['Grava 3/4"',0.68,'m³'],['Agua',220,'L']]],['Concreto f\'c 200 hecho en obra','m³',4,'1 oficial + 4 ayudantes + revolvedora',[['Cemento gris',7,'bto 50 kg'],['Arena',0.5,'m³'],['Grava 3/4"',0.65,'m³'],['Agua',220,'L']]],['Concreto f\'c 250 hecho en obra','m³',4,'1 oficial + 4 ayudantes + revolvedora',[['Cemento gris',8,'bto 50 kg'],['Arena',0.48,'m³'],['Grava 3/4"',0.62,'m³'],['Agua',215,'L']]],['Colado de columnas y muros','m³',3,'1 oficial + 4 ayudantes'],['Colado de trabes y losas con bomba','m³',25,'1 oficial + 6 ayudantes + bomba'],['Curado con agua en superficies horizontales','m²',300,'1 peón']]],
+ ['Muros',[
+  ['Muro de block 15×20×40','m²',10,'1 oficial + 1 ayudante',MUR],['Muro de block 12×20×40','m²',11,'1 oficial + 1 ayudante',[['Block 12×20×40',12.5,'pza'],['Cemento gris',0.1,'bto 50 kg'],['Arena',0.015,'m³']]],['Muro de ladrillo rojo recocido 14 cm','m²',6,'1 oficial + 1 ayudante',[['Ladrillo rojo 7×14×28',66,'pza'],['Cemento gris',0.2,'bto 50 kg'],['Arena',0.035,'m³']]],['Muro de tablaroca con bastidor','m²',12,'1 tablaroquero + 1 ayudante',[['Panel de yeso 1.22×2.44',0.72,'hoja'],['Canal y poste cal. 26',2.8,'ml'],['Pasta y cinta',0.9,'kg']]],['Castillo 15×15 con armex','ml',14,'1 oficial + 1 ayudante',[['Armex 15-15-4',1.05,'ml'],['Concreto f\'c 200',0.0225,'m³']]],['Cadena de cerramiento 15×20','ml',14,'1 oficial + 1 ayudante',[['Armex 15-20-4',1.05,'ml'],['Concreto f\'c 200',0.03,'m³']]]]],
+ ['Losas',[
+  ['Losa de vigueta y bovedilla','m²',18,'1 oficial + 3 ayudantes',[['Vigueta pretensada',1.43,'ml'],['Bovedilla de poliestireno',1.9,'pza'],['Malla 6-6/10-10',1.05,'m²'],['Concreto f\'c 200',0.05,'m³']]],['Losa maciza de 10 cm','m²',12,'1 oficial + 4 ayudantes',[['Concreto f\'c 250',0.105,'m³'],['Varilla #3',4.5,'kg']]]]],
+ ['Recubrimientos',[
+  ['Aplanado cemento-arena 1:4 en muros','m²',12,'1 oficial + 1 ayudante',[['Cemento gris',0.12,'bto 50 kg'],['Arena cernida',0.022,'m³']]],['Aplanado fino (afine)','m²',14,'1 oficial + 1 ayudante',[['Cemento gris',0.08,'bto 50 kg'],['Arena cernida',0.012,'m³']]],['Aplanado en plafón','m²',8,'1 oficial + 1 ayudante',[['Cemento gris',0.12,'bto 50 kg'],['Arena cernida',0.022,'m³']]],['Lambrín cerámico en muro','m²',8,'1 azulejero + 1 ayudante',[['Azulejo',1.05,'m²'],['Pegazulejo',0.2,'saco 20 kg'],['Boquilla',0.3,'kg']]],['Pintura vinílica 2 manos con sellador','m²',40,'1 pintor + 1 ayudante',[['Sellador vinílico',0.08,'L'],['Pintura vinílica',0.2,'L']]],['Pintura elastomérica en fachada','m²',30,'1 pintor + 1 ayudante',[['Pintura elastomérica',0.3,'L']]],['Plafón de tablaroca','m²',10,'1 tablaroquero + 1 ayudante',[['Panel de yeso 1.22×2.44',0.36,'hoja'],['Canaleta y canal listón',2.4,'ml'],['Pasta y cinta',0.6,'kg']]]]],
+ ['Pisos',[
+  ['Firme de concreto 10 cm con malla','m²',25,'1 oficial + 3 ayudantes',[['Cemento gris',0.64,'bto 50 kg'],['Arena',0.05,'m³'],['Grava 3/4"',0.07,'m³'],['Malla 6-6/10-10',1.05,'m²']]],['Piso cerámico 60×60','m²',12,'1 azulejero + 1 ayudante',[['Loseta cerámica',1.05,'m²'],['Pegazulejo',0.2,'saco 20 kg'],['Boquilla',0.35,'kg']]],['Porcelanato 60×120','m²',8,'1 azulejero + 1 ayudante',[['Porcelanato',1.07,'m²'],['Pegazulejo para porcelanato',0.25,'saco 20 kg'],['Niveladores',6,'pza']]],['Zoclo cerámico','ml',30,'1 azulejero + 1 ayudante'],['Concreto estampado','m²',20,'1 oficial + 3 ayudantes']]],
+ ['Azoteas',[
+  ['Entortado con pendiente','m²',20,'1 oficial + 2 ayudantes'],['Impermeabilizante acrílico con malla','m²',60,'1 oficial + 1 ayudante',[['Impermeabilizante acrílico',1.1,'L'],['Malla de refuerzo',1.1,'m²']]],['Impermeabilizante prefabricado APP 3.5 mm','m²',40,'1 oficial + 1 ayudante',[['Rollo APP (10 m²)',0.115,'rollo'],['Primario asfáltico',0.3,'L']]],['Chaflán de mortero','ml',40,'1 oficial + 1 ayudante']]],
+ ['Instalaciones',[
+  ['Salida eléctrica (contacto o apagador)','sal',6,'1 electricista + 1 ayudante'],['Salida hidráulica CPVC','sal',5,'1 plomero + 1 ayudante'],['Salida sanitaria PVC','sal',5,'1 plomero + 1 ayudante'],['Registro sanitario 40×60','pza',2,'1 oficial + 1 ayudante']]],
+];
+const RFLAT=[];REN.forEach(g=>g[1].forEach(r=>RFLAT.push({g:g[0],n:r[0],u:r[1],r:r[2],cu:r[3],m:r[4]||[]})));
+$('#r-con').innerHTML=REN.map(g=>`<optgroup label="${g[0]}">${g[1].map(r=>{const i=RFLAT.findIndex(x=>x.n===r[0]&&x.g===g[0]);return `<option value="${i}">${esc(r[0])}</option>`}).join('')}</optgroup>`).join('');
+$('#r-con').value=RFLAT.findIndex(x=>x.n.startsWith('Muro de block 15'));
+function renTable(){const q=($('#r-q').value||'').toLowerCase(),cur=+$('#r-con').value;let h='';
+  REN.forEach(g=>{const rows=RFLAT.map((x,i)=>[x,i]).filter(([x])=>x.g===g[0]&&(!q||x.n.toLowerCase().includes(q)));if(!rows.length)return;
+    h+=`<tr class="gtitle"><td colspan="5">${g[0]}</td></tr>`+rows.map(([x,i])=>`<tr class="pick${i===cur?' sel':''}" data-ren="${i}"><td>${esc(x.n)}</td><td class="num">${x.u}</td><td class="r num">${fx(x.r,1)} ${x.u}/jor</td><td class="r num">${fx(1/x.r,3)} jor/${x.u}</td><td style="color:var(--graphite)">${x.cu}</td></tr>`).join('')});
+  $('#r-table').innerHTML=h||'<tr><td colspan="5" style="color:var(--mute)">Ninguna actividad coincide.</td></tr>'}
+function ren(){const r=RFLAT[$('#r-con').value],q=+$('#r-cant').value||0,cq=Math.max(1,+$('#r-cuad').value||1),aj=1+(+$('#r-aj').value||0)/100,d=1+(+$('#r-desp').value||0)/100;
+  const rr=r.r*aj,j=rr>0?q/(rr*cq):0;
+  $('#r-jor').innerHTML=fx(j,1)+' <small>jornadas</small>';
+  $('#r-sub').textContent=`${fx(q)} ${r.u} · ${fx(rr,1)} ${r.u}/jornada · ${cq} × (${r.cu}) · ≈ ${fx(j/5.5,1)} semanas`;
+  $('#r-rows').innerHTML=r.m.length?r.m.map(m=>`<tr><td>${m[0]}</td><td class="r num">${fx(m[1],3)}</td><td class="r num">${fx(m[1]*q*d,m[1]*q>20?0:2)}</td><td>${m[2]}</td></tr>`).join(''):`<tr><td colspan="4" style="color:var(--mute)">Actividad de mano de obra; sin consumo de materiales en esta tabla.</td></tr>`;
+  renTable()}
+$('#r-table').addEventListener('click',e=>{const t=e.target.closest('[data-ren]');if(!t)return;$('#r-con').value=t.dataset.ren;ren();save();window.scrollTo({top:$('#t-ren').offsetTop-80,behavior:'smooth'})});
+$('#r-q').addEventListener('input',renTable);
+
+/* ---------- catálogo ---------- */
+const CAT=[ // [clave, concepto, unidad, partida, M.O., materiales, P.U.] — G-VENTURA REALES, Hermosillo 2026
+['PRE-01','TAPIAL PROVISIONAL CON LONA Y BARROTES DE MADERA','ML','Preliminares',140,260,500],
+['PRE-02','CISTERNA DE 2,800 L: EXCAVACIÓN, CIMENTACIÓN, MUROS, TANQUE, RELLENO E IMPERMEABILIZACIÓN','LOTE','Preliminares',18032.09,27048.13,56350.27],
+['PRE-03','RENTA DE BAÑO PORTÁTIL','MES','Preliminares',0,1440,1800],
+['PRE-04','TRAZO Y NIVELACIÓN CON EQUIPO TOPOGRÁFICO A PARTIR DE BANCO DE NIVEL','M2','Preliminares',28,0,35],
+['PRE-05','BODEGA PROVISIONAL DE LÁMINA Y BARROTES PARA ALMACENAJE DE MATERIALES','PZA','Preliminares',2880,3520,8000],
+['TER-01','CORTE DE TERRENO A MÁQUINA EN MATERIAL CLASE B, MEDIDO EN BANCO','M2','Terracerías',0,33.86,42.32],
+['TER-02','CARGA A MÁQUINA Y ACARREO EN CAMIÓN DE VOLTEO A 1 KM DE MATERIAL PRODUCTO DE EXCAVACIÓN','M3','Terracerías',0,49.10,61.37],
+['TER-03','COMPACTACIÓN DE TERRENO NATURAL, 15 CM PROMEDIO, AL 90 % DE SU PVSM','M2','Terracerías',0,19.67,24.59],
+['TER-04','FORMACIÓN DE SUBRASANTE CON MATERIAL DEL LUGAR, 25 CM, AL 98 % DE SU PVSM','M3','Terracerías',0,154.14,192.67],
+['TER-05','BASE HIDRÁULICA COMPACTADA AL 95 % DE SU PVSM EN CAPAS DE 20 CM','M3','Terracerías',0,389.10,486.37],
+['TER-06','AFINE DE TERRACERÍAS POR MEDIOS MECÁNICOS PARA RECIBIR CONCRETO O CARPETA','M2','Terracerías',0,168,210],
+['CIM-01','EXCAVACIÓN MANUAL Y/O MECÁNICA EN TERRENO TIPO II PARA CIMENTACIÓN, DE 0 A -0.60 M','M3','Cimentación',400,0,500],
+['CIM-02','LOSA DE CIMENTACIÓN SEGÚN CÁLCULO ESTRUCTURAL, CONCRETO F\'C=250 KG/CM², ARMADO PERIMETRAL Y BASTONES','M2','Cimentación',658,1222,2350],
+['CIM-03','CASTILLO K1 15×15 CM, F\'C=200 KG/CM², 4 VAR 3/8" Y ESTRIBOS 1/4" @ 20 CM, ACABADO COMÚN','ML','Cimentación',198,242,550],
+['CIM-04','CASTILLO K2 15×30 CM, F\'C=200 KG/CM², 6 VAR 3/8" Y ESTRIBOS 1/4" @ 20 CM, ACABADO COMÚN','ML','Cimentación',208.80,255.20,580],
+['CIM-05','COLUMNA 30×30 CM F\'C=250 KG/CM² ACABADO APARENTE, 4 VAR #6 Y ESTRIBOS #3 @ 30 CM','ML','Cimentación',540,660,1500],
+['CIM-06','ZAPATA AISLADA DE CONCRETO PREMEZCLADO F\'C=250 KG/CM², PARRILLA VAR #5 @ 15 CM','PZA','Cimentación',2040,4760,8500],
+['CIM-07','DADO 0.40×0.40×0.80 M DE CONCRETO PREMEZCLADO F\'C=250 KG/CM², 8 VAR #5 Y ESTRIBOS #3 @ 20 CM','PZA','Cimentación',1440,1760,4000],
+['CIM-08','ZAPATA CORRIDA 0.90×0.15 M CON CONTRATRABE 0.20×0.80 M, F\'C=250 KG/CM², PARA MURO DE CONTENCIÓN','ML','Cimentación',842.43,1263.64,2632.58],
+['CIM-09','IMPERMEABILIZACIÓN DE CIMENTACIÓN CON ASFALTO, UNA CARA','M2','Cimentación',32.87,76.70,124.52],
+['CIM-10','RELLENO CON MATERIAL PRODUCTO DE EXCAVACIÓN COMPACTADO CON BAILARINA AL 90 % PROCTOR','M3','Cimentación',116.59,0,145.74],
+['ALB-01','MURO DE LADRILLO TÉRMICO EN PLANTA BAJA ASENTADO CON MORTERO, INCLUYE ANDAMIOS Y LIMPIEZA','M2','Albañilería',156,448,800],
+['ALB-02','MURO DE LADRILLO TÉRMICO EN PLANTA ALTA ASENTADO CON MORTERO, INCLUYE ANDAMIOS Y LIMPIEZA','M2','Albañilería',159.90,459.20,820],
+['ALB-03','MURO DE BLOCK 20×20×40 CM CON CASTILLOS AHOGADOS, CASTILLOS Y DALA 20×20 CM (MURO DE CONTENCIÓN)','M2','Albañilería',250,346.47,866.17],
+['ALB-04','CADENA 15×15 CM, F\'C=200 KG/CM², 4 VAR 3/8" Y ESTRIBOS 1/4" @ 20 CM','ML','Albañilería',198,242,550],
+['ALB-05','LOSA DE AZOTEA DE VIGUETA Y BOVEDILLA V11, BOVEDILLA DE POLIESTIRENO DE 16 CM','M2','Albañilería',350,603.20,1450],
+['ALB-06','LOSA DE ENTREPISO DE VIGUETA Y BOVEDILLA V11, BOVEDILLA DE POLIESTIRENO DE 16 CM','M2','Albañilería',350,644.80,1550],
+['ALB-07','COLADO DE RELLENO PARA NIVELACIÓN DE LOSA DE ENTREPISO','M2','Albañilería',132,108,300],
+['ALB-08','SOBRETECHO A BASE DE PERLITA Y CONCRETO','M2','Albañilería',92.40,75.60,210],
+['ALB-09','CHAFLÁN PERIMETRAL DE CONCRETO','ML','Albañilería',79.20,43.20,180],
+['ALB-10','DIAMANTES DESVIADORES DE AGUA PLUVIAL','M2','Albañilería',66,54,150],
+['ALB-11','PRETILES EN LOSA','ML','Albañilería',224,416,800],
+['ALB-12','ESCALERA DE CONCRETO ARMADO SEGÚN DISEÑO ARQUITECTÓNICO','LOTE','Albañilería',17680,34320,65000],
+['ALB-13','VIGA IPR CON ANCLAJE EPÓXICO O CONVENCIONAL A CONCRETO','PZA','Albañilería',0,21280,26600],
+['ALB-14','PLAFÓN LISO DE TABLAROCA CON PERFILES DE LÁMINA GALVANIZADA','M2','Albañilería',212.40,259.60,590],
+['ALB-15','REGISTRO SANITARIO 0.40×0.60×0.80 M DE TABIQUE ROJO RECOCIDO CON MARCO Y CONTRAMARCO','PZA','Albañilería',1820.48,2730.72,5689],
+['ALB-16','COLADERA DE PRETIL PARA AZOTEA HELVEX 4954, SUMINISTRO Y COLOCACIÓN','PZA','Albañilería',697.96,2442.86,4362.25],
+['ALB-17','PISO DE CONCRETO F\'C=250 KG/CM² DE 10 CM ACABADO PULIDO CON MALLA 6×6/10-10','M2','Albañilería',163.20,380.80,680],
+['ELE-01','CABLEADO ELÉCTRICO','CAJA','Eléctrico',0,1250,1400],
+['ELE-02','CENTRO DE CARGA SQUARE D SEGÚN PROYECTO ELÉCTRICO','PZA','Eléctrico',1104,6500,9200],
+['ELE-03','INTERRUPTOR TERMOMAGNÉTICO SEGÚN PROYECTO ELÉCTRICO','PZA','Eléctrico',100,250,540],
+['ELE-04','SALIDA ELÉCTRICA: CABLEADO, MANGUERA, ACCESORIOS Y CAJAS','SAL','Eléctrico',360,132,550],
+['HID-01','SALIDA HIDROSANITARIA','SAL','Instalaciones',450,792,1650],
+['HID-02','INSTALACIÓN DE GAS CON TUBERÍA DE COBRE DE 1/2" A 1", ENTERRADA Y ENCOFRADA CON CONCRETO','LOTE','Instalaciones',14600,14600,36500],
+['ACA-01','FINO DE APLANADO DE 6 MM EN FIRMES CON MEZCLA YESO-CEMENTO','M2','Acabados',120,55,350],
+['ACA-02','ENJARRE GRUESO','M2','Acabados',120,45,350],
+['ACA-03','ENJARRE FINO','M2','Acabados',50,35,270],
+['ACA-04','YESO PULIDO EN MUROS','M2','Acabados',150,115,450],
+['ACA-05','PISO LAMINADO SOBRE FIRME DE CONCRETO EN PLANTA ALTA','M2','Acabados',250,450,850],
+['ACA-06','PISO DE PORCELANATO EN EXTERIOR PEGADO CON ADHESIVO PARA PORCELANATO (PIEZA HASTA $300/M²)','M2','Acabados',250,450,950],
+['ACA-07','PIEDRA GALARZA IRREGULAR BLANCA, SELLADA Y CON BOQUILLA BLANCA','M2','Acabados',350,850,1600],
+['ACA-08','AZULEJO EN ÁREA DE REGADERA (PIEZA HASTA $350/M²)','M2','Acabados',350,450,1050],
+['ACA-09','IMPERMEABILIZACIÓN EN ÁREA DE REGADERA','LOTE','Acabados',1716,3484,6500],
+['ACA-10','LIMPIEZA GRUESA DURANTE LA OBRA','LOTE','Acabados',2415,0,3450],
+];
+const parts=['Todas las partidas',...new Set(CAT.map(c=>c[3]))];
+$('#c-part').innerHTML=parts.map(p=>`<option>${p}</option>`).join('');
+function cat(){const q=$('#c-q').value.trim().toUpperCase(),p=$('#c-part').value;
+  const f=CAT.filter(c=>(p===parts[0]||c[3]===p)&&(!q||(c[0]+' '+c[1]).toUpperCase().includes(q)));
+  $('#c-rows').innerHTML=f.map(c=>`<tr><td class="num" style="white-space:nowrap">${c[0]}</td><td style="min-width:260px">${esc(c[1])}</td><td class="num">${c[2]}</td><td class="r num">${m2(c[4])}</td><td class="r num">${m2(c[5])}</td><td class="r num" style="font-weight:600">${m2(c[6])}</td><td class="r" style="white-space:nowrap"><button class="btn sm" data-add="${c[0]}">Agregar</button></td></tr>`).join('')||`<tr><td colspan="7" style="color:var(--mute)">Ningún concepto coincide. Prueba con otra palabra o partida.</td></tr>`;
+  $('#c-count').textContent=`${f.length} de ${CAT.length} conceptos · precios de G-VENTURA REALES (Hermosillo, 2026), sin IVA.`}
+function m2(n){return '$'+Number(n).toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2})}
+$('#c-q').addEventListener('input',cat);$('#c-part').addEventListener('change',cat);
+let PRES=store.get('pres2',[['PRE-04',180,28,0,35],['CIM-02',120,658,1222,2350],['ALB-01',260,156,448,800],['ALB-05',140,350,603.2,1450],['ACA-02',490,120,45,350]]);
+function pres(){let mo=0,mat=0,sub=0;
+  $('#pr-rows').innerHTML=PRES.map((r,i)=>{const c=CAT.find(x=>x[0]===r[0]);if(!c)return'';const q=r[1];mo+=q*r[2];mat+=q*r[3];sub+=q*r[4];
+    const inp=(k,v,l)=>`<input type="number" step="any" min="0" value="${v}" data-pi="${i}" data-pk="${k}" aria-label="${l}">`;
+    return `<tr><td class="num">${c[0]}</td><td style="min-width:220px">${esc(c[1])}</td><td class="num">${c[2]}</td><td class="r">${inp(1,q,'Cantidad')}</td><td class="r">${inp(2,r[2],'Mano de obra')}</td><td class="r">${inp(3,r[3],'Materiales')}</td><td class="r num">${m2(r[2]+r[3])}</td><td class="r">${inp(4,r[4],'Precio unitario')}</td><td class="r num">${mxn(q*r[4])}</td><td><button class="x" data-del="${i}" aria-label="Quitar">×</button></td></tr>`}).join('')||'<tr><td colspan="10" style="color:var(--mute)">Agrega conceptos desde el catálogo.</td></tr>';
+  $('#pr-mo').textContent=mxn(mo);$('#pr-mat').textContent=mxn(mat);$('#pr-cd').textContent=mxn(mo+mat);
+  $('#pr-sub').textContent=mxn(sub);$('#pr-iva').textContent=mxn(sub*.16);$('#pr-tot').textContent=mxn(sub*1.16);store.set('pres2',PRES)}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-add]');if(a){const c=CAT.find(x=>x[0]===a.dataset.add);PRES.push([c[0],1,c[4],c[5],c[6]]);pres();toast('Agregado al presupuesto')}
+  const d=e.target.closest('[data-del]');if(d){PRES.splice(+d.dataset.del,1);pres()}});
+$('#pr-rows').addEventListener('change',e=>{const t=e.target.closest('[data-pi]');if(!t)return;PRES[+t.dataset.pi][+t.dataset.pk]=+t.value||0;pres()});
+$('#pr-clear').onclick=()=>{PRES=[];pres()};
+$('#pr-copy').onclick=()=>{const rows=PRES.map(r=>{const c=CAT.find(x=>x[0]===r[0]);return [c[0],c[1],c[2],r[1],r[4],r[1]*r[4],r[2],r[1]*r[2],r[3],r[1]*r[3],r[2]+r[3],r[1]*(r[2]+r[3])].join('\t')});
+  copy(['CONCEPTO\tDESCRIPCIÓN\tUNIDAD\tCANTIDAD\tPRECIO UNITARIO\tIMPORTE\tP.U. MANO DE OBRA\tIMPORTE MANO DE OBRA\tP.U. MATERIALES\tIMPORTE MATERIALES\tP.U. COSTO DIRECTO\tIMPORTE COSTO DIRECTO',...rows].join('\n'))};
+
+/* ---------- impresión ---------- */
+const fechaLarga=v=>{if(!v)return new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});const [y,m,d]=v.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'})};
+const brandHead=t=>`<div class="pd-head"><div>${LOGO&&!LOGO.startsWith('__')?`<img src="${LOGO}" alt="">`:'<div style="font:800 18px Archivo,Arial;text-transform:uppercase;letter-spacing:.04em">Arq. Francisco Valenzuela</div>'}</div><div class="pd-title">${t}</div></div>`;
+const meta=(p,c,u,f)=>`<div class="pd-meta"><b>Proyecto</b><span>${esc(p||'—')}</span><b>Fecha</b><span>${fechaLarga(f)}</span><b>Cliente</b><span>${esc(c||'—')}</span><b>Ubicación</b><span>${esc(u||'—')}</span></div>`;
+const foot=`<div class="pd-foot"><span>Arq. Francisco Valenzuela · Sonora, México</span><span>WhatsApp (642) 112 1264 · @fv_arquitecto</span></div>`;
+function doPrint(html,wide){const pa=$('#print-area');pa.innerHTML=html;pa.classList.toggle('wide',!!wide);
+  try{window.print()}catch(e){}}
+$('#h-print').onclick=()=>{
+  const S=+$('#h-m2').value||0,t=TIPOS[$('#h-tipo').value],r=REG[$('#h-reg').value],modo=document.querySelector('input[name="h-modo"]:checked').value,c=+$('#h-cmb').value||0;
+  const unit=modo==='arancel'?c*t[1]:c,obra=S*unit,f=FS(S),H=obra*f*r[1]/100;let rows='',tot=0;
+  ALC.forEach((a,i)=>{if(!$('#h-a'+i).checked)return;const pc=a[1]/a[2].length,each=Math.round(H*pc/100),sub=each*a[2].length;tot+=sub;
+    rows+=`<tr class="part"><td colspan="2">${i+1}. ${a[0]}</td><td class="r n">${mxn(sub)}</td></tr>`+a[2].map((x,j)=>`<tr><td class="n" style="width:36px">${i+1}.${j+1}</td><td>${x}</td><td class="r n">${mxn(each)}</td></tr>`).join('')});
+  const pago=$('#h-pago').value.trim();
+  doPrint(brandHead('Propuesta de honorarios')+meta($('#h-proy').value,$('#h-cli').value,$('#h-ubi').value,$('#h-fecha').value)+
+   `<table style="margin-bottom:10px"><tbody><tr><td><b>Superficie</b></td><td class="n">${fx(S)} m²</td><td><b>Tipo de construcción</b></td><td>${esc(t[0].replace(/^\S+\s/,''))}</td></tr>
+    <tr><td><b>Costo estimado de obra</b></td><td class="n">${mxn(obra)}</td><td><b>Honorarios de referencia</b></td><td class="n">${mxn(H)}</td></tr></tbody></table>
+   <table><thead><tr><th>Clave</th><th>Alcance y entregables</th><th class="r">Importe</th></tr></thead><tbody>${rows}</tbody></table>
+   <table class="pd-sum"><tbody><tr><td>Subtotal</td><td class="r n">${mxn(tot)}</td></tr><tr><td>IVA 16 %</td><td class="r n">${mxn(tot*.16)}</td></tr><tr class="grand"><td>Total</td><td class="r n">${mxn(tot*1.16)}</td></tr></tbody></table>
+   <ul class="pd-notes">${pago?`<li><b>Forma de pago:</b> ${esc(pago)}</li>`:''}<li>La presente propuesta tiene una vigencia de un mes a partir de la fecha en que se presenta.</li><li>Cualquier trabajo o entregable no especificado en esta propuesta tendrá un costo adicional.</li><li>Honorarios calculados con el método del arancel de la Federación de Colegios de Arquitectos de la República Mexicana.</li></ul>`+foot)};
+$('#pr-print').onclick=()=>{
+  const groups={};PRES.forEach(r=>{const c=CAT.find(x=>x[0]===r[0]);if(!c)return;(groups[c[3]]=groups[c[3]]||[]).push([c,r])});
+  let body='',T=[0,0,0,0];
+  Object.entries(groups).forEach(([g,items])=>{let t=[0,0,0,0];
+    body+=`<tr class="part"><td colspan="14">${g}</td></tr>`;
+    items.forEach(([c,r])=>{const q=r[1],cd=r[2]+r[3];t[0]+=q*r[4];t[1]+=q*r[2];t[2]+=q*r[3];t[3]+=q*cd;
+      body+=`<tr><td class="n">${c[0]}</td><td>${esc(c[1])}</td><td>${c[2]}</td><td class="r n">${fx(q)}</td><td class="r n">${m2(r[4])}</td><td class="r n">${m2(q*r[4])}</td><td class="r n">${m2(r[2])}</td><td class="r n">${m2(q*r[2])}</td><td class="r n">${m2(r[3])}</td><td class="r n">${m2(q*r[3])}</td><td class="r n">${m2(cd)}</td><td class="r n">${m2(q*cd)}</td></tr>`});
+    body+=`<tr class="tot"><td colspan="5">TOTAL ${g.toUpperCase()}</td><td class="r n">${m2(t[0])}</td><td></td><td class="r n">${m2(t[1])}</td><td></td><td class="r n">${m2(t[2])}</td><td></td><td class="r n">${m2(t[3])}</td></tr>`;
+    T=T.map((v,k)=>v+t[k])});
+  body+=`<tr class="grand"><td colspan="5">TOTAL</td><td class="r n">${m2(T[0])}</td><td></td><td class="r n">${m2(T[1])}</td><td></td><td class="r n">${m2(T[2])}</td><td></td><td class="r n">${m2(T[3])}</td></tr>`;
+  doPrint(brandHead('Presupuesto de obra')+meta($('#pr-proy').value,$('#pr-cli').value,$('#pr-ubi').value,$('#pr-fecha').value)+
+   `<table><thead><tr><th rowspan="2">Concepto</th><th rowspan="2">Descripción</th><th rowspan="2">Unidad</th><th rowspan="2" class="r">Cantidad</th><th colspan="2" class="grp">Precio</th><th colspan="2" class="grp">Mano de obra</th><th colspan="2" class="grp">Materiales</th><th colspan="2" class="grp">Costo directo</th></tr>
+   <tr><th class="r">P.U.</th><th class="r">Importe</th><th class="r">P.U.</th><th class="r">Importe</th><th class="r">P.U.</th><th class="r">Importe</th><th class="r">P.U.</th><th class="r">Importe</th></tr></thead><tbody>${body}</tbody></table>
+   <ul class="pd-notes"><li>El presente presupuesto tiene una vigencia de un mes a partir de la fecha en que se presenta.</li><li>Precios más I.V.A. Precios L.A.B. en ${esc($('#pr-ubi').value||'Hermosillo, Sonora')}.</li><li>Cualquier trabajo o actividad no especificada dentro de este presupuesto tendrá un costo adicional.</li></ul>`+foot,true)};
+
+/* ---------- método residual ---------- */
+function res(){const v=id=>+$('#x-'+id).value||0;
+  const ter=v('ter'),pide=v('pide'),cons=v('cons'),vend=v('vend')/100,pv=v('pv'),cc=v('cc');
+  const ing=cons*vend*pv,cCons=cons*cc,cInd=cCons*v('ind')/100,cFin=cCons*v('fin')/100,cCom=ing*v('com')/100,ut=ing*v('ut')/100;
+  const resid=ing-cCons-cInd-cFin-cCom-ut,utReal=ing-cCons-cInd-cFin-cCom-pide,ok=pide<=resid;
+  const row=(a,b,s='')=>`<tr><td${s}>${a}</td><td class="r num"${s}>${b}</td></tr>`;
+  $('#x-out').innerHTML=`<h3>Valor residual del terreno</h3>
+   <div class="big num">${mxn(resid)} <small>MXN</small></div>
+   <div class="num" style="color:var(--mute);font-size:13px;margin-top:6px">${ter?mxn(resid/ter):'$0'}/m² de terreno · lo máximo a pagar para ganar el ${fx(v('ut'),1)} % esperado</div>
+   <span class="verdict ${ok?'ok':'no'}">${ok?'El precio pedido cabe en el negocio':'El precio pedido está arriba del residual'}</span>
+   <div class="tbl-wrap" style="margin-top:20px"><table><tbody>
+   ${row('Ventas ('+fx(cons*vend)+' m² vendibles × '+mxn(pv)+')',mxn(ing),' style="font-weight:600"')}
+   ${row('Construcción ('+fx(cons)+' m² × '+mxn(cc)+')','− '+mxn(cCons))}
+   ${row('Proyecto, licencias e indirectos','− '+mxn(cInd))}
+   ${row('Financiamiento','− '+mxn(cFin))}
+   ${row('Comercialización','− '+mxn(cCom))}
+   ${row('Utilidad esperada','− '+mxn(ut))}
+   ${row('Valor residual del terreno',mxn(resid),' style="font-weight:600;border-top:1px solid var(--ink)"')}
+   </tbody></table></div>
+   <div class="kpis" style="margin-top:20px"><div><span class="eyebrow">Precio pedido</span><b>${mxn(pide)}</b></div><div><span class="eyebrow">Utilidad si pagas eso</span><b>${mxn(utReal)}</b></div><div><span class="eyebrow">Margen sobre ventas</span><b>${fx(ing?utReal/ing*100:0,1)} %</b></div></div>
+   <p class="note">Análisis preliminar para decidir si vale la pena estudiar un terreno. No sustituye un avalúo, un estudio de mercado ni la revisión de uso de suelo y densidad permitida.</p>`}
+
+/* ---------- guardar / restaurar ---------- */
+const SAVE_SEL='#v-herramientas input:not([type=search]):not([data-pi]),#v-herramientas select';
+function save(){const o={};$$(SAVE_SEL).forEach(el=>{if(el.type==='radio'){if(el.checked)o['r:'+el.name]=el.value}else if(el.id)o[el.id]=el.type==='checkbox'?el.checked:el.value});store.set('inputs',o)}
+function restore(){const o=store.get('inputs',null);if(!o)return;
+  Object.entries(o).forEach(([k,v])=>{if(k.startsWith('r:')){const r=document.querySelector(`input[name="${k.slice(2)}"][value="${v}"]`);if(r)r.checked=true;return}
+    const el=document.getElementById(k);if(!el)return;if(el.type==='checkbox')el.checked=!!v;else if(el.tagName!=='SELECT'||[...el.options].some(op=>op.value===v))el.value=v})}
+function calcAll(){hon();intl();par();ren();res()}
+$('#v-herramientas').addEventListener('input',e=>{if(e.target.type==='search'||e.target.dataset.pi!==undefined)return;calcAll();save()});
+$('#v-herramientas').addEventListener('change',e=>{if(e.target.type==='search'||e.target.dataset.pi!==undefined)return;calcAll();save()});
+
+/* ---------- init ---------- */
+restore();{const d=new Date(),iso=new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);['#h-fecha','#pr-fecha'].forEach(s=>{if(!$(s).value)$(s).value=iso})}
+calcAll();cat();pres();
+tool(store.get('tool','hon'));
+</script>
+
+</body>
+</html>
